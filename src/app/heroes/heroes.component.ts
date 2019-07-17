@@ -9,10 +9,12 @@ import { HeroService } from '../hero.service';
 })
 export class HeroesComponent implements OnInit {
   heroes: Hero[];
+  student: Hero;
 
   constructor(private heroService: HeroService) { }
 
   ngOnInit() {
+    this.getStudent();
     this.getHeroes();
   }
 
@@ -20,10 +22,14 @@ export class HeroesComponent implements OnInit {
     this.heroService.getHeroes()
     .subscribe(heroes => this.heroes = heroes);
   }
-  add(name: string): void {
-    name = name.trim();
-    if (!name) { return; }
-    this.heroService.addHero({ name } as Hero)
+  getStudent(): void{
+    this.heroService.getStudent(1)
+    .subscribe(student => this.student = student);
+  }
+  add(FirstMidName: string): void {
+    FirstMidName = FirstMidName.trim();
+    if (!FirstMidName) { return; }
+    this.heroService.addHero({ FirstMidName } as Hero)
       .subscribe(hero => {
         this.heroes.push(hero);
       });
